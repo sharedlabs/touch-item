@@ -3,7 +3,6 @@
 <!--
 `touch-item`
 
-
 @demo demo/index.html 
 -->
 
@@ -14,21 +13,44 @@
         display: block;
       }
     </style>
-    <h2>Hello [[prop1]]</h2>
+
+    <content></content>
+
   </template>
-
-  <script>
-    Polymer({
-
-      is: 'touch-item',
-
-      properties: {
-        prop1: {
-          type: String,
-          value: 'touch-item',
-        },
-      },
-
-    });
-  </script>
 </dom-module>
+
+<script>
+(function() {
+  'use strict';
+
+  Polymer({
+
+    is: 'touch-item',
+
+    properties: {
+
+      mouseOver: {
+        type: Boolean,
+        reflectToAttribute: true,
+        value: false
+      }
+
+    },
+
+    listeners: {
+      'pointerover': '_onPointerOver',
+      'pointerout': '_onPointerOut'
+    },
+
+    _onPointerOver(event) {
+      this.mouseOver = event.pointerType === 'mouse';
+    },
+
+    _onPointerOut() {
+      this.mouseOver = false;
+    }
+
+  });
+
+}());
+</script>
