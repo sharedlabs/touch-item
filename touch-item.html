@@ -10,8 +10,14 @@
   <template>
     <style>
       :host {
+        cursor: pointer;
         display: block;
+        outline: 0;
       }
+
+      :host([mouse-over]) {
+        background: var(--touch-item-hover-bg-color, #f7f7f7) !important;
+      }      
     </style>
 
     <content></content>
@@ -27,6 +33,10 @@
 
     is: 'touch-item',
 
+    hostAttributes: {
+      'tabindex': '0'
+    },
+
     properties: {
 
       mouseOver: {
@@ -37,9 +47,24 @@
 
     },
 
-    listeners: {
-      'pointerover': '_onPointerOver',
-      'pointerout': '_onPointerOut'
+    created() {
+      this._onPointerOver = this._onPointerOver.bind(this);
+      this._onPointerOut = this._onPointerOut.bind(this);
+    },
+
+    attached() {
+      this._toggleListeners(true);
+    },
+
+    detached() {
+      this._toggleListeners(false);
+    },
+
+    _toggleListeners(enable) {
+      const m = enable ? 'addEventListener' : 'removeEventListener';
+
+      this[m]('pointerover', this._onPointerOver);
+      this[m]('pointerout', this._onPointerOut);
     },
 
     _onPointerOver(event) {
