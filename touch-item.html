@@ -17,7 +17,11 @@
 
       :host([mouse-over]) {
         background: var(--touch-item-hover-bg-color, #f7f7f7) !important;
-      }      
+      }
+
+      :host([disabled]) {
+        pointer-events: none;
+      }
     </style>
 
     <content></content>
@@ -40,6 +44,12 @@
     properties: {
 
       mouseOver: {
+        type: Boolean,
+        reflectToAttribute: true,
+        value: false
+      },
+
+      disabled: {
         type: Boolean,
         reflectToAttribute: true,
         value: false
