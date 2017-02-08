@@ -1,4 +1,4 @@
-<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymer/polymer-element.html">
 
 <!--
 `touch-item`
@@ -24,68 +24,74 @@
       }
     </style>
 
-    <content></content>
-
+    <slot></slot>
   </template>
-</dom-module>
 
-<script>
-(function() {
-  'use strict';
+  <script>
 
-  Polymer({
+    class TouchItem extends Polymer.Element {
 
-    is: 'touch-item',
+      static get is() {return 'touch-item';}
 
-    hostAttributes: {
-      'tabindex': '0'
-    },
+      static get config() {
+        return {
+          hostAttributes: {
+            'tabindex': '0'
+          },
 
-    properties: {
+          properties: {
 
-      mouseOver: {
-        type: Boolean,
-        reflectToAttribute: true,
-        value: false
-      },
+            mouseOver: {
+              type: Boolean,
+              reflectToAttribute: true,
+              value: false
+            },
 
-      disabled: {
-        type: Boolean,
-        reflectToAttribute: true,
-        value: false
+            disabled: {
+              type: Boolean,
+              reflectToAttribute: true,
+              value: false
+            }
+
+          }
+        };
       }
 
-    },
+      constructor() {
+        super();
 
-    created() {
-      this._onPointerOver = this._onPointerOver.bind(this);
-      this._onPointerOut = this._onPointerOut.bind(this);
-    },
+        this._onPointerOver = this._onPointerOver.bind(this);
+        this._onPointerOut = this._onPointerOut.bind(this);
+      }
 
-    attached() {
-      this._toggleListeners(true);
-    },
+      connectedCallback() {
+        super.connectedCallback();
+        this._toggleListeners(true);
+      }
 
-    detached() {
-      this._toggleListeners(false);
-    },
+      disconnectedCallback() {
+        super.disconnectedCallback();
+        this._toggleListeners(false);
+      }
 
-    _toggleListeners(enable) {
-      const m = enable ? 'addEventListener' : 'removeEventListener';
+      _toggleListeners(enable) {
+        const m = enable ? 'addEventListener' : 'removeEventListener';
 
-      this[m]('pointerover', this._onPointerOver);
-      this[m]('pointerout', this._onPointerOut);
-    },
+        this[m]('pointerover', this._onPointerOver);
+        this[m]('pointerout', this._onPointerOut);
+      }
 
-    _onPointerOver(event) {
-      this.mouseOver = event.pointerType === 'mouse';
-    },
+      _onPointerOver(event) {
+        this.mouseOver = event.pointerType === 'mouse';
+      }
 
-    _onPointerOut() {
-      this.mouseOver = false;
+      _onPointerOut() {
+        this.mouseOver = false;
+      }
+
     }
 
-  });
+    customElements.define(TouchItem.is, TouchItem);
 
-}());
-</script>
+  </script>
+</dom-module>
