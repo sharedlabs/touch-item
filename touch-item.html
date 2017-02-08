@@ -25,6 +25,7 @@
     </style>
 
     <slot></slot>
+
   </template>
 
   <script>
@@ -35,10 +36,6 @@
 
       static get config() {
         return {
-          hostAttributes: {
-            'tabindex': '0'
-          },
-
           properties: {
 
             mouseOver: {
@@ -57,36 +54,16 @@
         };
       }
 
-      constructor() {
-        super();
-
-        this._onPointerOver = this._onPointerOver.bind(this);
-        this._onPointerOut = this._onPointerOut.bind(this);
-      }
-
       connectedCallback() {
         super.connectedCallback();
-        this._toggleListeners(true);
-      }
 
-      disconnectedCallback() {
-        super.disconnectedCallback();
-        this._toggleListeners(false);
-      }
+        this.addEventListener('pointerover', event => {
+          this.mouseOver = event.pointerType === 'mouse';
+        });
 
-      _toggleListeners(enable) {
-        const m = enable ? 'addEventListener' : 'removeEventListener';
-
-        this[m]('pointerover', this._onPointerOver);
-        this[m]('pointerout', this._onPointerOut);
-      }
-
-      _onPointerOver(event) {
-        this.mouseOver = event.pointerType === 'mouse';
-      }
-
-      _onPointerOut() {
-        this.mouseOver = false;
+        this.addEventListener('pointerout', _ => {
+          this.mouseOver = false;
+        });
       }
 
     }

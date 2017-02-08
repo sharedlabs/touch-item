@@ -1,18 +1,18 @@
 {
   "name": "touch-item",
   "main": "touch-item.html",
+  "authors": [
+    "Pedro Garcia <pdgago@gmail.com>"
+  ],
+  "license": "MIT",
   "dependencies": {
     "polymer": "Polymer/polymer#2.0-preview"
   },
   "devDependencies": {
-    "iron-component-page": "PolymerElements/iron-component-page#2.0-preview",
-    "web-component-tester": "^5.0.0"
+    "iron-component-page": "PolymerElements/iron-component-page#2.0-preview"
   },
   "resolutions": {
-    "iron-flex-layout": "2.0-preview",
     "polymer": "2.0-preview",
-    "paper-styles": "2.0-preview",
-    "webcomponentsjs": "v1",
-    "custom-elements": "master"
+    "webcomponentsjs": "v1"
   }
 }
