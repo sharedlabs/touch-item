@@ -34,23 +34,21 @@
 
       static get is() {return 'touch-item';}
 
-      static get config() {
+      static get properties() {
         return {
-          properties: {
 
-            mouseOver: {
-              type: Boolean,
-              reflectToAttribute: true,
-              value: false
-            },
+          mouseOver: {
+            type: Boolean,
+            reflectToAttribute: true,
+            value: false
+          },
 
-            disabled: {
-              type: Boolean,
-              reflectToAttribute: true,
-              value: false
-            }
-
+          disabled: {
+            type: Boolean,
+            reflectToAttribute: true,
+            value: false
           }
+
         };
       }
 
